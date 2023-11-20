@@ -1,4 +1,4 @@
-package com.example.moviesrating
+package com.example.moviesrating.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
