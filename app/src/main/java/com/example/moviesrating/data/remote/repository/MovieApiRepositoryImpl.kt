@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class MovieApiRepositoryImpl @Inject constructor(
-    private val api: MovieApi
+    var api: MovieApi
 ) : MovieApiRepository {
 
     override suspend fun getListMoviesOrderByPopularity(): Flow<DataEntityMoviesByPopularity> =
