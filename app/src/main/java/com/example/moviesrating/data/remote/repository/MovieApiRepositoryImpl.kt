@@ -1,5 +1,6 @@
 package com.example.moviesrating.data.remote.repository
 
+import android.util.Log
 import com.example.moviesrating.data.remote.api.MovieApi
 import com.example.moviesrating.data.remote.model.moviesbypopularity.DataEntityMoviesByPopularity
 import kotlinx.coroutines.Dispatchers
@@ -14,6 +15,10 @@ class MovieApiRepositoryImpl @Inject constructor(
 
     override suspend fun getListMoviesOrderByPopularity(): Flow<DataEntityMoviesByPopularity> =
         flow {
-            emit(api.getListMoviesOrderByPopularity())
+            try {
+                emit(api.getListMoviesOrderByPopularity())
+            } catch (e: Exception) {
+                Log.d("Tag", e.toString())
+            }
         }.flowOn(Dispatchers.IO)
 }

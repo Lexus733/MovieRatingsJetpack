@@ -1,4 +1,4 @@
-package com.example.moviesrating.presentation.screens.general
+package com.example.moviesrating.presentation.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,12 +12,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GeneralViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     private val repository: MovieApiRepository
 ) : ViewModel() {
 
-    private val _moviesState = MutableStateFlow(GeneralState())
-    val movieState: StateFlow<GeneralState> = _moviesState.asStateFlow()
+    private val _moviesState = MutableStateFlow(HomeState())
+    val movieState: StateFlow<HomeState> = _moviesState.asStateFlow()
 
     fun getMovieList() {
         viewModelScope.launch {

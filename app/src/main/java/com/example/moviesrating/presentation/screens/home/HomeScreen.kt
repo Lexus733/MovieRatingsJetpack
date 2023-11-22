@@ -1,4 +1,4 @@
-package com.example.moviesrating.presentation.screens.general
+package com.example.moviesrating.presentation.screens.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
@@ -8,11 +8,11 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun GeneralScreen(
-    generalViewModel: GeneralViewModel = hiltViewModel()
+fun HomeScreen(
+    homeViewModel: HomeViewModel = hiltViewModel()
 ) {
-    val moviesState by generalViewModel.movieState.collectAsState()
-    generalViewModel.getMovieList()
+    val moviesState by homeViewModel.movieState.collectAsState()
+    homeViewModel.getMovieList()
     Column {
         Text(text = moviesState.toString())
     }

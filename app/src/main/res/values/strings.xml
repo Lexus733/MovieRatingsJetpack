@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Movies Rating</string>
+
+    <string name="bottom_item_home">Home</string>
+    <string name="bottom_item_search">Search</string>
+    <string name="bottom_item_save_watch">Watch list</string>
 </resources>

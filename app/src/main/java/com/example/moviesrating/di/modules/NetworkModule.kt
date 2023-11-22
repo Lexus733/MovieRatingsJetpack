@@ -28,7 +28,9 @@ object NetworkModule {
                 .addHeader("X-RapidAPI-Key", BuildConfig.API_KEY)
                 .addHeader("X-RapidAPI-Host", "moviesminidatabase.p.rapidapi.com")
                 .build().let(chain::proceed)
-        }.build()
+        }
+        .addInterceptor(LoggingInterceptor())
+        .build()
 
     @Singleton
     @Provides
