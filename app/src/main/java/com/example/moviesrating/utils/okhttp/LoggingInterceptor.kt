@@ -1,11 +1,10 @@
-package com.example.moviesrating.di.modules
+package com.example.moviesrating.utils.okhttp
 
 import okhttp3.Interceptor
 import okhttp3.Protocol
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
 import okhttp3.internal.http2.ConnectionShutdownException
-import org.json.JSONObject
 import java.io.IOException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -20,7 +19,7 @@ class LoggingInterceptor : Interceptor {
 
             val bodyString = response.body!!.string()
 
-            if (!response.isSuccessful) throw Exception(bodyString)
+            if (!response.isSuccessful) throw Exception(bodyString + response.code)
 
             return response.newBuilder()
                 .body(bodyString.toResponseBody(response.body?.contentType()))
@@ -55,24 +54,9 @@ class LoggingInterceptor : Interceptor {
                 .request(request)
                 .protocol(Protocol.HTTP_1_1)
                 .message(msg)
-                // TODO узнать зачем надо без него падает и объединить с другим
                 .code(999)
                 .body("{${e}}".toResponseBody(null))
                 .build()
-        }
-    }
-
-    fun <T> retrofitErrorHandler(res: retrofit2.Response<T>): T {
-        if (res.isSuccessful) {
-            return res.body()!!
-        } else {
-            val errMsg = res.errorBody()?.string()?.let {
-                JSONObject(it).getString("error")
-            } ?: run {
-                res.code().toString()
-            }
-
-            throw Exception(errMsg)
         }
     }
 }

@@ -4,12 +4,17 @@ import com.example.moviesrating.BuildConfig
 import com.example.moviesrating.data.remote.api.MovieApi
 import com.example.moviesrating.data.remote.repository.MovieApiRepository
 import com.example.moviesrating.data.remote.repository.MovieApiRepositoryImpl
+import com.example.moviesrating.di.IoDispatcher
+import com.example.moviesrating.utils.okhttp.LoggingInterceptor
+import com.example.moviesrating.utils.retrofit.NetworkResultCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -46,13 +51,9 @@ object NetworkModule {
     ): MovieApi = Retrofit.Builder()
         .baseUrl("https://moviesminidatabase.p.rapidapi.com")
         .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .addCallAdapterFactory(NetworkResultCallAdapterFactory.create())
         .client(okHttpClient)
         .build()
         .create(MovieApi::class.java)
 
-    @Singleton
-    @Provides
-    fun provideRepository(
-        api: MovieApi,
-    ): MovieApiRepository = MovieApiRepositoryImpl(api = api)
 }

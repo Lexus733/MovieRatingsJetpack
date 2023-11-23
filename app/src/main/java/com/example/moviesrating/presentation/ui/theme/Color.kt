@@ -14,3 +14,12 @@ val BackgroundColor = Color(0xFF242A32)
 
 val ButtonItemSelectedColor = Color(0xFF0296E5)
 val ButtonItemUnselectedColor = Color(0xFF67686D)
+
+val BottomNavigationDividerColor = Color(0xFF0296E5)
+
+val SearchTitleTextColor = Color(0xFFEBEBEF)
+val SearchSubTitleTextColor = Color(0xFF92929D)
+
+val TopAppBarTitleColor = Color(0xFFECECEC)
+
+val TopAppBarIconColor = Color(0xFFFFFFFF)

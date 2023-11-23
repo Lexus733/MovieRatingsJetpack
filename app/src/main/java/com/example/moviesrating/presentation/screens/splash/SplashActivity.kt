@@ -52,7 +52,9 @@ class SplashActivity : ComponentActivity() {
 
         LaunchedEffect(key1 = true, block = {
             alpha.animateTo(ANIMATION_ALPHA_TARGET, animationSpec = tween(ANIMATION_DURATION))
-            startActivity(Intent(this@SplashActivity, GeneralActivity::class.java))
+            val intent = Intent(this@SplashActivity, GeneralActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         })
 
         Box(

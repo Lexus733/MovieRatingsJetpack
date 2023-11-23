@@ -19,16 +19,16 @@ fun NavGraph(
 ) {
     NavHost(
         navController = navHostController,
-        startDestination = RouteConst.HOME_SCREEN,
+        startDestination = RouteConst.HOME,
         modifier = Modifier.padding(innerPadding)
     ) {
-        composable(RouteConst.HOME_SCREEN) {
+        composable(RouteConst.HOME) {
             HomeScreen()
         }
-        composable(RouteConst.SEARCH_SCREEN) {
+        composable(RouteConst.SEARCH) {
             SearchScreen()
         }
-        composable(RouteConst.SAVE_WATCH_SCREEN) {
+        composable(RouteConst.SAVE_WATCH) {
             SaveWatchScreen()
         }
     }

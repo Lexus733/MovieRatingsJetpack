@@ -4,4 +4,12 @@
     <string name="bottom_item_home">Home</string>
     <string name="bottom_item_search">Search</string>
     <string name="bottom_item_save_watch">Watch list</string>
+
+    <string name="search_title_test_text">We Are Sorry, We Can Not Find The Movie :(</string>
+    <string name="search_sub_title_test_text">Find your movie by Type title, categories, years, etc </string>
+
+    <string name="screen_home_title">Home</string>
+    <string name="screen_search_title">Search</string>
+    <string name="screen_save_watch_title">Watch list</string>
+    <string name="screen_undefined">undefined</string>
 </resources>
