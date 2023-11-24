@@ -6,23 +6,15 @@ import com.example.moviesrating.data.remote.model.moviesbypopularity.DataEntityM
 import com.example.moviesrating.di.IoDispatcher
 import com.example.moviesrating.utils.retrofit.NetworkResult
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-const val POPULARITY_SIZE = 5
+const val POPULARITY_SIZE = 10
 
 class MovieApiRepositoryImpl @Inject constructor(
     private val api: MovieApi,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : MovieApiRepository {
-
-    override suspend fun getListMoviesOrderByPopularityFlow(): Flow<NetworkResult<DataEntityMoviesByPopularity>> =
-        flow {
-            emit(api.getListMoviesOrderByPopularityFlow())
-        }.flowOn(ioDispatcher)
 
     override suspend fun getListMoviesOrderByPopularity(): DataEntityMoviesByPopularity =
         withContext(ioDispatcher) {
@@ -30,6 +22,28 @@ class MovieApiRepositoryImpl @Inject constructor(
             val results = data.results?.take(POPULARITY_SIZE)
             return@withContext data.copy(results = results)
         }
+
+    override suspend fun getListMoviesOrderByPopularityNetworkResult(): NetworkResult<DataEntityMoviesByPopularity> =
+        withContext(ioDispatcher) {
+            when (val data = api.getListMoviesOrderByPopularityNetworkResult()) {
+                is NetworkResult.Success -> {
+                    data.data = data.data.copy(
+                        results = data.data.results?.take(POPULARITY_SIZE)!!
+                    )
+                    return@withContext data
+                }
+
+                else -> {
+                    return@withContext data
+                }
+            }
+        }
+
+    override suspend fun getMovieByImdbIdNetworkResult(imdbId: String): NetworkResult<DataEntityMovieByImdbId> =
+        withContext(ioDispatcher) {
+            api.getMovieByImdbIdNetworkResult(imdbId)
+        }
+
 
     override suspend fun getMovieByImdbId(imdbId: String): DataEntityMovieByImdbId =
         withContext(ioDispatcher) {

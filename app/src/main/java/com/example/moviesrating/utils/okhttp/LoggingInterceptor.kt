@@ -1,5 +1,8 @@
 package com.example.moviesrating.utils.okhttp
 
+import android.content.Context
+import android.os.Handler
+import android.widget.Toast
 import okhttp3.Interceptor
 import okhttp3.Protocol
 import okhttp3.Response
@@ -8,8 +11,12 @@ import okhttp3.internal.http2.ConnectionShutdownException
 import java.io.IOException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class LoggingInterceptor : Interceptor {
+class LoggingInterceptor @Inject constructor(
+    private val context: Context,
+    private val handler: Handler
+) : Interceptor {
 
     @Throws(Exception::class)
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -19,7 +26,15 @@ class LoggingInterceptor : Interceptor {
 
             val bodyString = response.body!!.string()
 
-            if (!response.isSuccessful) throw Exception(bodyString + response.code)
+            if (!response.isSuccessful) {
+                handler.post {
+                    Toast.makeText(
+                        context,
+                        "Error message: $bodyString + Code: ${response.code}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
 
             return response.newBuilder()
                 .body(bodyString.toResponseBody(response.body?.contentType()))
@@ -27,7 +42,7 @@ class LoggingInterceptor : Interceptor {
 
         } catch (e: Exception) {
             e.printStackTrace()
-            var msg = ""
+            val msg: String
             when (e) {
                 is SocketTimeoutException -> {
                     msg = "Timeout - Please check your internet connection"

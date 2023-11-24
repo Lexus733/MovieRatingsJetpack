@@ -1,8 +1,12 @@
 package com.example.moviesrating.di.modules
 
+import android.os.Handler
+import android.os.Looper
 import com.example.moviesrating.di.DefaultDispatcher
 import com.example.moviesrating.di.IoDispatcher
 import com.example.moviesrating.di.MainDispatcher
+import com.example.moviesrating.di.MainHandler
+import com.example.moviesrating.di.UnconfinedDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,4 +30,11 @@ object DispatchersModule {
     @Provides
     fun providesMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
 
+    @UnconfinedDispatcher
+    @Provides
+    fun providesUnconfinedDispatcher(): CoroutineDispatcher = Dispatchers.Unconfined
+
+    @MainHandler
+    @Provides
+    fun provideMainHandler() : Handler = Handler(Looper.getMainLooper())
 }

@@ -9,7 +9,10 @@ import retrofit2.http.Path
 interface MovieApi {
 
     @GET("/movie/order/byPopularity/")
-    suspend fun getListMoviesOrderByPopularityFlow() : NetworkResult<DataEntityMoviesByPopularity>
+    suspend fun getListMoviesOrderByPopularityNetworkResult() : NetworkResult<DataEntityMoviesByPopularity>
+
+    @GET("/movie/id/{imdbId}/")
+    suspend fun getMovieByImdbIdNetworkResult(@Path("imdbId") imdbId: String) : NetworkResult<DataEntityMovieByImdbId>
 
     @GET("/movie/order/byPopularity/")
     suspend fun getListMoviesOrderByPopularity() : DataEntityMoviesByPopularity
