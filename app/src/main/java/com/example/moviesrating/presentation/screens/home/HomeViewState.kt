@@ -1,7 +1,7 @@
 package com.example.moviesrating.presentation.screens.home
 
-import com.example.moviesrating.data.remote.model.moviebyimdbid.DataEntityMovieByImdbId
-import com.example.moviesrating.data.remote.model.moviebyimdbid.Gen
+import com.example.moviesrating.domain.model.moviedetail.EntityGen
+import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetail
 
 sealed class HomeViewState {
     object Loading : HomeViewState()
@@ -12,7 +12,7 @@ sealed class HomeViewState {
         val message: String?
     ) : HomeViewState()
     data class Display(
-        val items: List<DataEntityMovieByImdbId>,
-        val genMap: HashMap<Gen, List<DataEntityMovieByImdbId>>
+        val items: List<EntityMovieDetail>,
+        val genMap: HashMap<EntityGen, List<EntityMovieDetail>>
     ) : HomeViewState()
 }

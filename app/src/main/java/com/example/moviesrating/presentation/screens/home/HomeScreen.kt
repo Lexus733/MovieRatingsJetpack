@@ -35,14 +35,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.moviesrating.R
+import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetail
 import com.example.moviesrating.presentation.ui.components.PosterImage
 import com.example.moviesrating.presentation.ui.theme.BackgroundColor
+import com.example.moviesrating.utils.RouteConst
 import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
-    homeViewModel: HomeViewModel = hiltViewModel()
+    homeViewModel: HomeViewModel = hiltViewModel(),
+    navController: NavController
 ) {
     val moviesState by homeViewModel.homeViewState.collectAsState()
 
@@ -55,13 +59,20 @@ fun HomeScreen(
             is HomeViewState.NoItems -> NoItems()
             is HomeViewState.Loading -> Loading()
             is HomeViewState.Error -> Error(state)
-            is HomeViewState.Display -> Display(state)
+            is HomeViewState.Display -> Display(state) {
+                navController.currentBackStackEntry?.savedStateHandle?.set(RouteConst.MOVIE_DETAIL, it)
+                navController.navigate(RouteConst.MOVIE_DETAIL)
+            }
         }
     }
+
+    LaunchedEffect(key1 = moviesState, block = {
+        homeViewModel.obtainIntent(intent = HomeIntent.EnterScreen)
+    })
 }
 
 @Composable
-fun NoItems() {
+private fun NoItems() {
     Column {
         Text(text = "No movies")
     }
@@ -79,36 +90,38 @@ fun Loading() {
 }
 
 @Composable
-fun Error(state: HomeViewState.Error) {
+private fun Error(state: HomeViewState.Error) {
     Column {
         Text(text = state.message.toString())
     }
 }
 
 @Composable
-fun Display(state: HomeViewState.Display) {
+private fun Display(state: HomeViewState.Display, onPosterClick : (EntityMovieDetail) -> Unit) {
     Column {
-        PopularMoviesLazyRow(state)
-        GenresTabRow(state)
+        PopularMoviesLazyRow(state, onPosterClick)
+        GenresTabRow(state, onPosterClick)
     }
 }
 
 @Composable
-fun PopularMoviesLazyRow(state: HomeViewState.Display) {
+private fun PopularMoviesLazyRow(state: HomeViewState.Display, onPosterClick: (EntityMovieDetail) -> Unit) {
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 16.dp)
     ) {
         items(state.items) {
-            PosterImage(it)
+            PosterImage(it) {
+                onPosterClick.invoke(it)
+            }
         }
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun GenresTabRow(state: HomeViewState.Display) {
+private fun GenresTabRow(state: HomeViewState.Display, onPosterClick: (EntityMovieDetail) -> Unit) {
     val pagerState = rememberPagerState(
         initialPage = 0,
         pageCount = {
@@ -164,23 +177,26 @@ fun GenresTabRow(state: HomeViewState.Display) {
         modifier = Modifier.fillMaxSize()
     ) {
         when (val currentPage = pagerState.currentPage) {
-            else -> GenreLazyGrid(currentPage, state)
+            else -> GenreLazyGrid(currentPage, state, onPosterClick)
         }
     }
 }
 
 @Composable
-fun GenreLazyGrid(
+private fun GenreLazyGrid(
     currentPage: Int,
-    state: HomeViewState.Display
+    state: HomeViewState.Display,
+    onPosterClick: (EntityMovieDetail) -> Unit
 ) {
-    //Оптимизировать эту хрень и asyncImage чтобы кэшировалось
+    //TODO Оптимизировать эту хрень
     val gen = state.genMap.keys.elementAt(currentPage)
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         content = {
             items(state.genMap[gen]!!) {
-                PosterImage(dataEntityMovieByImdbId = it)
+                PosterImage(entityMovieDetail = it) {
+                    onPosterClick.invoke(it)
+                }
             }
         })
 }

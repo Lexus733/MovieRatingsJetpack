@@ -1,10 +1,12 @@
 package com.example.moviesrating.presentation.screens.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.moviesrating.data.remote.model.moviebyimdbid.DataEntityMovieByImdbId
-import com.example.moviesrating.data.remote.model.moviebyimdbid.Gen
+import com.example.moviesrating.domain.model.moviedetail.EntityGen
+import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetail
 import com.example.moviesrating.domain.usecase.GetPopularFilmsDataNetworkResultUseCaseImpl
+import com.example.moviesrating.utils.IntentHandler
 import com.example.moviesrating.utils.retrofit.onError
 import com.example.moviesrating.utils.retrofit.onException
 import com.example.moviesrating.utils.retrofit.onSuccess
@@ -19,13 +21,37 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val useCase: GetPopularFilmsDataNetworkResultUseCaseImpl
-) : ViewModel() {
+) : ViewModel(), IntentHandler<HomeIntent> {
 
     private val _homeViewState = MutableStateFlow<HomeViewState>(HomeViewState.Loading)
     val homeViewState: StateFlow<HomeViewState> = _homeViewState.asStateFlow()
 
-    init {
-        getMovieList()
+    override fun obtainIntent(intent: HomeIntent) {
+        when(val currentState = _homeViewState.value) {
+            is HomeViewState.Error -> reduce(intent, currentState)
+            is HomeViewState.Loading -> reduce(intent, currentState)
+            is HomeViewState.NoItems -> reduce(intent, currentState)
+            is HomeViewState.Display -> reduce(intent, currentState)
+        }
+    }
+
+    private fun reduce(intent: HomeIntent, currentState: HomeViewState.Display) {
+
+    }
+
+    private fun reduce(intent: HomeIntent, currentState: HomeViewState.NoItems) {
+
+    }
+
+    private fun reduce(intent: HomeIntent, currentState: HomeViewState.Loading) {
+        when(intent) {
+            is HomeIntent.EnterScreen -> getMovieList()
+            else -> Log.d("HomeViewState.Loading","Invalid $intent for state $currentState")
+        }
+    }
+
+    private fun reduce(intent: HomeIntent, currentState: HomeViewState.Error) {
+
     }
 
     private fun getMovieList() {
@@ -48,17 +74,18 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun getGenMap(success: List<DataEntityMovieByImdbId>): HashMap<Gen, List<DataEntityMovieByImdbId>> {
-        val genSet = mutableSetOf<Gen>()
-        val hashMap = hashMapOf<Gen, List<DataEntityMovieByImdbId>>()
+    private fun getGenMap(success: List<EntityMovieDetail>): HashMap<EntityGen, List<EntityMovieDetail>> {
+        val genSet = mutableSetOf<EntityGen>()
+        val hashMap = hashMapOf<EntityGen, List<EntityMovieDetail>>()
 
-        success.map { genSet.addAll(it.results.gen) }
+        success.map { genSet.addAll(it.gen) }
 
         genSet.map { gen ->
-            hashMap.put(gen, success.filter { it.results.gen.contains(gen) })
+            hashMap.put(gen, success.filter { it.gen.contains(gen) })
         }
 
         return hashMap
     }
+
 }
 

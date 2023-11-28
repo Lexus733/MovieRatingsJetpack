@@ -12,4 +12,5 @@
     <string name="screen_search_title">Search</string>
     <string name="screen_save_watch_title">Watch list</string>
     <string name="screen_undefined">undefined</string>
+    <string name="screen_movie_detail">Movie detail</string>
 </resources>

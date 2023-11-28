@@ -18,7 +18,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavBackStackEntry
 import com.example.moviesrating.R
 import com.example.moviesrating.presentation.ui.theme.BackgroundColor
 import com.example.moviesrating.presentation.ui.theme.TopAppBarIconColor
@@ -79,6 +78,7 @@ private fun getTitle(route: String?): Int {
         RouteConst.HOME -> Route.HOME_SCREEN.title
         RouteConst.SEARCH -> Route.SEARCH_SCREEN.title
         RouteConst.SAVE_WATCH -> Route.SAVE_WATCH_SCREEN.title
+        RouteConst.MOVIE_DETAIL -> Route.MOVIE_DETAIL.title
         else -> R.string.screen_undefined
     }
 }
