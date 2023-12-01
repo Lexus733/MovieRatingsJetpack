@@ -1,6 +1,5 @@
 package com.example.moviesrating.presentation.screens.home
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,8 +11,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
@@ -24,7 +21,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,7 +38,6 @@ import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetail
 import com.example.moviesrating.presentation.ui.components.PosterImage
 import com.example.moviesrating.presentation.ui.theme.BackgroundColor
 import com.example.moviesrating.utils.RouteConst
-import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
@@ -119,26 +115,9 @@ private fun PopularMoviesLazyRow(state: HomeViewState.Display, onPosterClick: (E
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun GenresTabRow(state: HomeViewState.Display, onPosterClick: (EntityMovieDetail) -> Unit) {
-    val pagerState = rememberPagerState(
-        initialPage = 0,
-        pageCount = {
-            state.genMap.keys.size
-        },
-        initialPageOffsetFraction = 0f
-    )
-
-    val pagerPage = remember {
-        mutableIntStateOf(0)
-    }
-
-    val scope = rememberCoroutineScope()
-
-    LaunchedEffect(key1 = pagerState.currentPage, block = {
-        pagerPage.intValue = pagerState.currentPage
-    })
+    var tabIndex by remember { mutableIntStateOf(0) }
 
     Column(
         modifier = Modifier
@@ -146,7 +125,7 @@ private fun GenresTabRow(state: HomeViewState.Display, onPosterClick: (EntityMov
             .padding(top = 24.dp)
     ) {
         ScrollableTabRow(
-            selectedTabIndex = pagerPage.intValue,
+            selectedTabIndex = tabIndex,
             edgePadding = 0.dp,
             containerColor = BackgroundColor,
             divider = {}
@@ -163,23 +142,13 @@ private fun GenresTabRow(state: HomeViewState.Display, onPosterClick: (EntityMov
                         fontWeight = FontWeight(500)
                     )
                 },
-                    selected = pagerState.currentPage == index,
-                    onClick = {
-                        pagerPage.intValue = index
-                        scope.launch { pagerState.animateScrollToPage(index) }
-                    }
+                    selected = tabIndex == index,
+                    onClick = { tabIndex = index }
                 )
             }
         }
     }
-    HorizontalPager(
-        state = pagerState,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        when (val currentPage = pagerState.currentPage) {
-            else -> GenreLazyGrid(currentPage, state, onPosterClick)
-        }
-    }
+    GenreLazyGrid(tabIndex, state, onPosterClick)
 }
 
 @Composable

@@ -9,6 +9,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -18,6 +19,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.moviesrating.R
 import com.example.moviesrating.presentation.ui.theme.BackgroundColor
 import com.example.moviesrating.presentation.ui.theme.TopAppBarIconColor
@@ -27,7 +30,10 @@ import com.example.moviesrating.utils.RouteConst
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarCustom(currentRoute: String?) {
+fun TopAppBarCustom(navController: NavController) {
+    val backStack by navController.currentBackStackEntryAsState()
+    val currentRoute = backStack?.destination?.route
+
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = BackgroundColor,
@@ -46,7 +52,9 @@ fun TopAppBarCustom(currentRoute: String?) {
         },
         navigationIcon = {
             IconButton(
-                onClick = { /* do something */ },
+                onClick = {
+                      navController.popBackStack()
+                },
                 modifier = Modifier.padding(start = 16.dp)
             ) {
                 Icon(
@@ -64,7 +72,12 @@ fun TopAppBarCustom(currentRoute: String?) {
             ) {
                 Icon(
                     modifier = Modifier.size(24.dp),
-                    painter = painterResource(id = R.drawable.ic_info_circle_24),
+                    painter = painterResource(
+                        id = when (currentRoute) {
+                            RouteConst.MOVIE_DETAIL -> R.drawable.ic_bookmark_off_24
+                            else -> R.drawable.ic_info_circle_24
+                        }
+                    ),
                     contentDescription = null,
                     tint = TopAppBarIconColor
                 )

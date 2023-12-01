@@ -23,3 +23,8 @@ val SearchSubTitleTextColor = Color(0xFF92929D)
 val TopAppBarTitleColor = Color(0xFFECECEC)
 
 val TopAppBarIconColor = Color(0xFFFFFFFF)
+
+val MovieDetailCardRateColor = Color(0xE6252836)
+val MovieDetailRateColor = Color(0xFFFF8700)
+val MovieDetailDividerColor = Color(0xFF696974)
+val MovieDetailDescriptionColor = Color(0xFF92929D)

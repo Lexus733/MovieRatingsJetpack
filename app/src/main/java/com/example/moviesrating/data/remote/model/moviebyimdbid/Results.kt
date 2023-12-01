@@ -6,7 +6,7 @@ data class Results(
     val created_at: String,
     val description: String,
     val gen: List<Gen>,
-    val image_url: String,
+    val image_url: String?,
     val imdb_id: String,
     val keywords: List<Keyword>,
     val more_like_this: MoreLikeThis,

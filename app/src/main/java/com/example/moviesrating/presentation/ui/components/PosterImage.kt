@@ -35,7 +35,7 @@ fun PosterImage(entityMovieDetail: EntityMovieDetail, onClick : () -> Unit) {
         AsyncImage(
             modifier = Modifier.fillMaxSize(),
             alignment = Alignment.Center,
-            model = entityMovieDetail.banner,
+            model = entityMovieDetail.image_url,
             placeholder = painterResource(id = R.drawable.ic_placeholder_24),
             error = painterResource(id = R.drawable.ic_error_24),
             contentDescription = null,
