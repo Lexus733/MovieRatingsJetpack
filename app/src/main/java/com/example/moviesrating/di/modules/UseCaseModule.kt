@@ -7,6 +7,10 @@ import com.example.moviesrating.domain.usecase.GetActorDetailsByIdUseCase
 import com.example.moviesrating.domain.usecase.GetActorDetailsByIdUseCaseImpl
 import com.example.moviesrating.domain.usecase.GetMovieCastByIdUseCase
 import com.example.moviesrating.domain.usecase.GetMovieCastByIdUseCaseImpl
+import com.example.moviesrating.domain.usecase.GetMovieDetailsByImdbIdUseCase
+import com.example.moviesrating.domain.usecase.GetMovieDetailsByImdbIdUseCaseImpl
+import com.example.moviesrating.domain.usecase.GetMovieListByTitleUseCase
+import com.example.moviesrating.domain.usecase.GetMovieListByTitleUseCaseImpl
 import com.example.moviesrating.domain.usecase.GetPopularFilmsDataUseCase
 import com.example.moviesrating.domain.usecase.GetPopularFilmsDataUseCaseImpl
 import dagger.Module
@@ -29,4 +33,12 @@ object UseCaseModule {
     @Provides
     fun getActorDetailsByIdUseCase(actorDetailsApiRepository: ActorDetailsApiRepository) : GetActorDetailsByIdUseCase =
         GetActorDetailsByIdUseCaseImpl(actorDetailsApiRepository)
+
+    @Provides
+    fun getMovieDetailsByImdbIdUseCase(movieApiRepository: MovieApiRepository) : GetMovieDetailsByImdbIdUseCase =
+        GetMovieDetailsByImdbIdUseCaseImpl(movieApiRepository)
+
+    @Provides
+    fun getMovieListByTitleUseCase(movieApiRepository: MovieApiRepository) : GetMovieListByTitleUseCase =
+        GetMovieListByTitleUseCaseImpl(movieApiRepository)
 }

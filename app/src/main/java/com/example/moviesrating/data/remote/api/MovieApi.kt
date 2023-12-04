@@ -4,6 +4,7 @@ import com.example.moviesrating.data.remote.model.actordetails.DataEntityActorDe
 import com.example.moviesrating.data.remote.model.moviecast.DataEntityMovieCast
 import com.example.moviesrating.data.remote.model.moviebyimdbid.DataEntityMovieByImdbId
 import com.example.moviesrating.data.remote.model.moviesbypopularity.DataEntityMoviesByPopularity
+import com.example.moviesrating.data.remote.model.search.DataEntityMovieSearchResult
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -20,4 +21,7 @@ interface MovieApi {
 
     @GET("/movie/id/{imdbId}/cast/")
     suspend fun getListCastByMovieId(@Path("imdbId") imdbId: String) : DataEntityMovieCast
+
+    @GET("/movie/imdb_id/byTitle/{title}/")
+    suspend fun getListByMovieTitle(@Path("title") title: String) : DataEntityMovieSearchResult
 }

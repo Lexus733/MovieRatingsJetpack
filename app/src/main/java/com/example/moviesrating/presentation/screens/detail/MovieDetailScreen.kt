@@ -52,13 +52,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.moviesrating.R
-import com.example.moviesrating.presentation.screens.home.Loading
+import com.example.moviesrating.presentation.ui.components.Loading
 import com.example.moviesrating.presentation.ui.components.PosterImage
+import com.example.moviesrating.presentation.ui.components.Rating
 import com.example.moviesrating.presentation.ui.theme.BackgroundColor
 import com.example.moviesrating.presentation.ui.theme.MovieDetailCardRateColor
 import com.example.moviesrating.presentation.ui.theme.MovieDetailDescriptionColor
 import com.example.moviesrating.presentation.ui.theme.MovieDetailDividerColor
-import com.example.moviesrating.presentation.ui.theme.MovieDetailRateColor
 
 @Composable
 fun MovieDetailScreen(
@@ -114,27 +114,7 @@ private fun BannerWithRate(state: MovieDetailViewState.Display, modifier: Modifi
                 containerColor = MovieDetailCardRateColor
             ),
         ) {
-            Row(
-                modifier = Modifier.padding(start = 8.dp, top = 4.dp, end = 8.dp, bottom = 4.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    modifier = Modifier
-                        .size(16.dp)
-                        .padding(end = 4.dp),
-                    painter = painterResource(id = R.drawable.ic_star_rating),
-                    contentDescription = null,
-                    tint = MovieDetailRateColor
-                )
-                Text(
-                    text = state.movie.rating.toString(),
-                    color = MovieDetailRateColor,
-                    fontFamily = FontFamily(Font(R.font.montserrat_medium)),
-                    fontWeight = FontWeight(600),
-                    fontSize = 12.sp,
-                    letterSpacing = 0.12.sp
-                )
-            }
+            Rating(rating = state.movie.rating.toString())
         }
     }
 }

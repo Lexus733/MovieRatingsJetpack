@@ -4,6 +4,7 @@ import com.example.moviesrating.domain.model.actordetails.EntityActorDetailsMapp
 import com.example.moviesrating.domain.model.moviecast.EntityMovieCastMapper
 import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetailMapper
 import com.example.moviesrating.domain.model.moviesbypopularity.EntityMoviesByPopularityMapper
+import com.example.moviesrating.domain.model.search.EntityMovieSearchResultMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,4 +25,7 @@ object MappersModule {
 
     @Provides
     fun entityActorDetailsMapper(): EntityActorDetailsMapper = EntityActorDetailsMapper()
+
+    @Provides
+    fun entityMovieSearchResultMapper(): EntityMovieSearchResultMapper = EntityMovieSearchResultMapper()
 }

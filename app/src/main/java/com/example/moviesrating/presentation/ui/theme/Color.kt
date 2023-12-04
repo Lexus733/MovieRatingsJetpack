@@ -28,3 +28,6 @@ val MovieDetailCardRateColor = Color(0xE6252836)
 val MovieDetailRateColor = Color(0xFFFF8700)
 val MovieDetailDividerColor = Color(0xFF696974)
 val MovieDetailDescriptionColor = Color(0xFF92929D)
+
+val SearchFieldBackgroundColor = Color(0xFF3A3F47)
+val SearchFieldIconColor = Color(0xFF67686D)

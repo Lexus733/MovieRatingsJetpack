@@ -11,7 +11,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
@@ -22,7 +21,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
@@ -35,6 +33,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesrating.R
 import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetail
+import com.example.moviesrating.presentation.ui.components.Loading
 import com.example.moviesrating.presentation.ui.components.PosterImage
 import com.example.moviesrating.presentation.ui.theme.BackgroundColor
 import com.example.moviesrating.utils.RouteConst
@@ -54,7 +53,7 @@ fun HomeScreen(
         when (val state = moviesState) {
             is HomeViewState.NoItems -> NoItems()
             is HomeViewState.Loading -> Loading()
-            is HomeViewState.Error -> Error(state)
+            is HomeViewState.Error -> Error(state.message.toString())
             is HomeViewState.Display -> Display(state) {
                 navController.currentBackStackEntry?.savedStateHandle?.set(RouteConst.MOVIE_DETAIL, it)
                 navController.navigate(RouteConst.MOVIE_DETAIL)
@@ -71,24 +70,6 @@ fun HomeScreen(
 private fun NoItems() {
     Column {
         Text(text = "No movies")
-    }
-}
-
-@Composable
-fun Loading() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        CircularProgressIndicator(
-            modifier = Modifier.align(Alignment.Center)
-        )
-    }
-}
-
-@Composable
-private fun Error(state: HomeViewState.Error) {
-    Column {
-        Text(text = state.message.toString())
     }
 }
 
