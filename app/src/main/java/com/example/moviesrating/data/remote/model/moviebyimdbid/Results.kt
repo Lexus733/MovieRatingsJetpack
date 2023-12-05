@@ -14,7 +14,7 @@ data class Results(
     val plot: String,
     val popularity: Int,
     val rating: Double,
-    val release: String,
+    val release: String?,
     val title: String,
     val trailer: String,
     val type: String,

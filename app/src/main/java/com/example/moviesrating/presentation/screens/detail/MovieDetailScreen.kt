@@ -114,7 +114,10 @@ private fun BannerWithRate(state: MovieDetailViewState.Display, modifier: Modifi
                 containerColor = MovieDetailCardRateColor
             ),
         ) {
-            Rating(rating = state.movie.rating.toString())
+            Rating(
+                modifier = Modifier.padding(start = 8.dp, top = 4.dp, end = 8.dp, bottom = 4.dp),
+                rating = state.movie.rating.toString()
+            )
         }
     }
 }

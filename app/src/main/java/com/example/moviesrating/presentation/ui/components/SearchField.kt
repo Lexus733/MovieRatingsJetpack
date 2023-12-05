@@ -1,6 +1,8 @@
 package com.example.moviesrating.presentation.ui.components
 
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -9,7 +11,9 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.moviesrating.R
@@ -25,6 +29,8 @@ fun SearchField(
     onValueChanged: (String) -> Unit = {},
     onIconClick: () -> Unit = {}
 ) {
+    val localFocusManager = LocalFocusManager.current
+
     TextField(
         value = value,
         onValueChange = onValueChanged,
@@ -49,6 +55,10 @@ fun SearchField(
             }
         },
         maxLines = 1,
-        modifier = modifier
+        modifier = modifier,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+        keyboardActions = KeyboardActions(onDone = {
+            localFocusManager.clearFocus()
+        })
     )
 }
