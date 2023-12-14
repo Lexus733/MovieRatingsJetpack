@@ -1,6 +1,6 @@
-## 1
+
 name: detekt
-## 2
+
 on:
  push:
    branches:
@@ -8,13 +8,13 @@ on:
  pull_request:
    branches:
    - main
-## 3
+ workflow_dispatch:
+
 jobs:
  detekt:
-   ## 4
    runs-on: ubuntu-latest
    steps:
       - name: "checkout"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: "detekt"
-        uses: natiginfo/action-detekt-all@1.17.0
+        uses: natiginfo/action-detekt-all@1.23.4
