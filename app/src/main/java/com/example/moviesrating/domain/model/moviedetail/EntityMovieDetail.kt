@@ -1,10 +1,12 @@
 package com.example.moviesrating.domain.model.moviedetail
 
 import android.os.Parcelable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.example.moviesrating.domain.model.actordetails.EntityActorDetails
 import kotlinx.parcelize.Parcelize
 
+@Immutable
 @Parcelize
 data class EntityMovieDetail(
     val imdb_id: String,
