@@ -1,6 +1,7 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
+import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     id("com.android.application")
@@ -27,8 +28,7 @@ android {
             useSupportLibrary = true
         }
 
-        val apiKey = gradleLocalProperties(rootDir).getProperty("API_KEY")
-        buildConfigField("String", "API_KEY", apiKey)
+        buildConfigField("String", "API_KEY", getApiKey())
     }
 
     buildTypes {
@@ -160,4 +160,11 @@ dependencies {
 
     // viewModel()
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+}
+
+fun getApiKey() : String {
+    val propFile = rootProject.file("./local.properties")
+    val properties = Properties()
+    properties.load(FileInputStream(propFile))
+    return properties.getProperty("API_KEY")
 }
