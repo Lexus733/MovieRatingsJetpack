@@ -27,8 +27,7 @@ jobs:
         run: echo API_KEY=\"$API_KEY\" > ./local.properties
       - name: Build the app
         run: ./gradlew assembleDebug
-      - name: Gradle run lint
-        run: ./gradlew lint
+      - run: ./gradlew lint
       - uses: yutailang0119/action-android-lint@v3
         with:
           report-path: build/reports/*.xml # Support glob patterns by https://www.npmjs.com/package/@actions/glob
