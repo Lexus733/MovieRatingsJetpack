@@ -33,6 +33,9 @@ jobs:
           distribution: zulu
           java-version: 11
           cache: gradle
+      - name: Make gradlew executable
+      - run: chmod +x ./gradlew
+      - name: Gradle run lint
       - run: ./gradlew lint
       - uses: yutailang0119/action-android-lint@v3
         with:
