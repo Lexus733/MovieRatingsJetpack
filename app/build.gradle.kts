@@ -1,4 +1,6 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import io.gitlab.arturbosch.detekt.Detekt
+import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
 
 plugins {
     id("com.android.application")
@@ -6,6 +8,7 @@ plugins {
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
+    id("io.gitlab.arturbosch.detekt") version "1.23.4"
 }
 
 android {
@@ -59,13 +62,41 @@ android {
     kapt {
         correctErrorTypes = true
     }
+
+    lint {
+        disable += setOf("VectorPath","IconLauncherShape","IconLocation","UnusedResources")
+        warningsAsErrors = true
+        abortOnError = true
+        checkDependencies = true
+        ignoreWarnings = false
+    }
+
+    detekt {
+        buildUponDefaultConfig = true // preconfigure defaults
+        allRules = false // activate all available (even unstable) rules.
+        config.setFrom("$projectDir/config/detekt.yml") // point to your custom config defining rules to run, overwriting default behavior
+        baseline = file("$projectDir/config/baseline.xml") // a way of suppressing issues before introducing detekt
+    }
+
+    tasks.withType<Detekt>().configureEach {
+        reports {
+            html.required.set(true) // observe findings in your browser with structure and code snippets
+            html.outputLocation.set(file("$projectDir/config/reports/detekt.html"))
+        }
+    }
+    tasks.withType<Detekt>().configureEach {
+        jvmTarget = "1.8"
+    }
+    tasks.withType<DetektCreateBaselineTask>().configureEach {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.activity:activity-compose:1.8.1")
+    implementation("androidx.activity:activity-compose:1.8.2")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
@@ -73,7 +104,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material:1.5.4")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.10.0")
+    implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
@@ -108,12 +139,12 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
     // Room
-    implementation("androidx.room:room-runtime:2.6.0")
-    annotationProcessor("androidx.room:room-compiler:2.6.0")
-    implementation("androidx.room:room-ktx:2.6.0")
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
 
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.5")
+    implementation("androidx.navigation:navigation-compose:2.7.6")
 
     // Kotlin Serialization Json
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
