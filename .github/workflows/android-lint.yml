@@ -38,7 +38,7 @@ jobs:
       - name: Gradle run lint
         run: ./gradlew lint
         env:
-          API_KEY: ${{ secrets.API_KEY }}
+          apiKey: ${{ secrets.API_KEY }}
       - uses: yutailang0119/action-android-lint@v3
         with:
           ignore-warnings: true # Ignore Lint Warnings
