@@ -26,9 +26,12 @@ import com.example.moviesrating.presentation.ui.theme.MovieDetailDescriptionColo
 import com.example.moviesrating.presentation.ui.theme.MovieDetailDividerColor
 
 @Composable
-fun DescriptionInfo(state: MovieDetailViewState.Display) {
+fun DescriptionInfo(
+    state: MovieDetailViewState.Display,
+    modifier: Modifier = Modifier
+) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(IntrinsicSize.Min)
             .padding(top = 16.dp),

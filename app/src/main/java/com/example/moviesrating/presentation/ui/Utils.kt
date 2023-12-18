@@ -14,4 +14,4 @@ annotation class LayoutDirectionPreviews
 
 @ThemePreviews
 @LayoutDirectionPreviews
-annotation class BasePreview
+annotation class BasePreviews

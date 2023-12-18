@@ -43,13 +43,14 @@ const val GRID_COUNT = 3
 
 @Composable
 fun HomeScreen(
-    homeViewModel: HomeViewModel = hiltViewModel(),
-    navController: NavController
+    navController: NavController,
+    modifier: Modifier = Modifier,
+    homeViewModel: HomeViewModel = hiltViewModel()
 ) {
     val moviesState by homeViewModel.homeViewState.collectAsState()
 
     Box(
-        Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(BackgroundColor)
     ) {
@@ -97,15 +98,22 @@ private fun PopularMoviesLazyRow(
             .padding(top = 16.dp)
     ) {
         items(state.items) {
-            PosterImage(it) {
-                onPosterClick.invoke(it)
-            }
+            PosterImage(
+                modifier = Modifier,
+                onClick = {
+                    onPosterClick.invoke(it)
+                },
+                entityMovieDetail = it
+            )
         }
     }
 }
 
 @Composable
-private fun GenresTabRow(state: HomeViewState.Display, onPosterClick: (EntityMovieDetail) -> Unit) {
+private fun GenresTabRow(
+    state: HomeViewState.Display,
+    onPosterClick: (EntityMovieDetail) -> Unit
+) {
     var tabIndex by remember { mutableIntStateOf(0) }
 
     Column(
@@ -133,8 +141,8 @@ private fun GenresTabRow(state: HomeViewState.Display, onPosterClick: (EntityMov
                 }, selected = tabIndex == index, onClick = { tabIndex = index })
             }
         }
+        GenreLazyGrid(tabIndex, state, onPosterClick)
     }
-    GenreLazyGrid(tabIndex, state, onPosterClick)
 }
 
 @Composable
@@ -146,9 +154,13 @@ private fun GenreLazyGrid(
     val gen = state.genMap.keys.elementAt(currentPage)
     LazyVerticalGrid(columns = GridCells.Fixed(GRID_COUNT), content = {
         items(state.genMap[gen]!!) {
-            PosterImage(entityMovieDetail = it) {
-                onPosterClick.invoke(it)
-            }
+            PosterImage(
+                modifier = Modifier,
+                onClick = {
+                    onPosterClick.invoke(it)
+                },
+                entityMovieDetail = it
+            )
         }
     })
 }

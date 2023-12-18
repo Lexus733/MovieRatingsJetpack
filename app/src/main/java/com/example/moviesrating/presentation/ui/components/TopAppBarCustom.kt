@@ -30,11 +30,15 @@ import com.example.moviesrating.utils.RouteConst
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarCustom(navController: NavController) {
+fun TopAppBarCustom(
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
     val backStack by navController.currentBackStackEntryAsState()
     val currentRoute = backStack?.destination?.route
 
     CenterAlignedTopAppBar(
+        modifier = modifier,
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = BackgroundColor,
             titleContentColor = TopAppBarIconColor,

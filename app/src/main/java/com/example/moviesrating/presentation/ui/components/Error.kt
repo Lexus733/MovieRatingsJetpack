@@ -3,10 +3,17 @@ package com.example.moviesrating.presentation.ui.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 
 @Composable
-fun Error(message: String) {
+fun Error(
+    message: String,
+    modifier: Modifier = Modifier
+) {
     Column {
-        Text(text = message)
+        Text(
+            modifier = modifier,
+            text = message
+        )
     }
 }

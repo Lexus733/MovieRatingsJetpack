@@ -1,8 +1,6 @@
 package com.example.moviesrating.presentation.screens.detail
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetail
 import com.example.moviesrating.utils.IntentHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,13 +15,13 @@ class MovieDetailViewModel @Inject constructor() : ViewModel(), IntentHandler<Mo
         MutableStateFlow<MovieDetailViewState>(MovieDetailViewState.Loading)
     val movieDetailViewState: StateFlow<MovieDetailViewState> = _movieDetailViewState.asStateFlow()
 
-    fun updateViewModel(entityMovieDetail: EntityMovieDetail) {
-        _movieDetailViewState.value = MovieDetailViewState.Display(entityMovieDetail)
-    }
-
     override fun obtainIntent(intent: MovieDetailIntent) {
-        when (intent) {
-            else -> Log.d("MovieDetailIntent", intent.toString())
+        if (intent is MovieDetailIntent.EnterScreen) {
+            _movieDetailViewState.value = if (intent.movie != null) {
+                MovieDetailViewState.Display(intent.movie)
+            } else {
+                MovieDetailViewState.Error
+            }
         }
     }
 }

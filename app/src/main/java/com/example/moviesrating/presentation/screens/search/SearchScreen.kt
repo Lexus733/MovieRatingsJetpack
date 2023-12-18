@@ -29,7 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.moviesrating.R
 import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetail
 import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetailPreview
-import com.example.moviesrating.presentation.ui.BasePreview
+import com.example.moviesrating.presentation.ui.BasePreviews
 import com.example.moviesrating.presentation.ui.ThemePreviews
 import com.example.moviesrating.presentation.ui.components.Loading
 import com.example.moviesrating.presentation.ui.components.PosterImage
@@ -37,15 +37,19 @@ import com.example.moviesrating.presentation.ui.components.Rating
 import com.example.moviesrating.presentation.ui.components.SearchField
 import com.example.moviesrating.presentation.ui.components.SearchSubTitle
 import com.example.moviesrating.presentation.ui.components.SearchTitle
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun SearchScreen(
+    modifier: Modifier = Modifier,
     viewModel: SearchViewModel = hiltViewModel()
 ) {
     val searchState = viewModel.viewState.collectAsState()
     val text = viewModel.searchTextState.collectAsState()
 
-    Box {
+    Box(
+        modifier = modifier
+    ) {
         Column {
             SearchField(
                 modifier = Modifier
@@ -70,7 +74,7 @@ fun SearchScreen(
 }
 
 @Composable
-private fun SearchResult(list: List<EntityMovieDetail>) {
+private fun SearchResult(list: ImmutableList<EntityMovieDetail>) {
     LazyColumn {
         items(list) {
             SearchItem(it)
@@ -99,11 +103,15 @@ private fun NoItems() {
     }
 }
 
-@BasePreview
+@BasePreviews
 @Composable
 private fun SearchItem(@PreviewParameter(EntityMovieDetailPreview::class) entityMovieDetail: EntityMovieDetail) {
     Row {
-        PosterImage(entityMovieDetail = entityMovieDetail) {}
+        PosterImage(
+            modifier = Modifier,
+            onClick = {},
+            entityMovieDetail = entityMovieDetail
+        )
         Column {
             Text(
                 text = entityMovieDetail.title,
@@ -113,7 +121,10 @@ private fun SearchItem(@PreviewParameter(EntityMovieDetailPreview::class) entity
                 color = Color.White,
                 modifier = Modifier.fillMaxSize()
             )
-            Rating(rating = entityMovieDetail.rating.toString())
+            Rating(
+                modifier = Modifier,
+                rating = entityMovieDetail.rating.toString()
+            )
             ItemInfo(
                 icon = R.drawable.ic_ticket,
                 text = entityMovieDetail.gen.first().genre

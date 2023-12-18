@@ -34,11 +34,13 @@ class GeneralActivity : ComponentActivity() {
                     containerColor = BackgroundColor,
                     topBar = {
                         TopAppBarCustom(
-                            navController
+                            modifier = Modifier,
+                            navController = navController
                         )
                     },
                     bottomBar = {
                         BottomNavigationCustom(
+                            modifier = Modifier,
                             navController = navController
                         )
                     },

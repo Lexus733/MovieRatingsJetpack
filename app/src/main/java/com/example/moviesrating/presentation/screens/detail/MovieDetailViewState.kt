@@ -4,7 +4,9 @@ import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetail
 
 sealed class MovieDetailViewState {
 
-    object Loading : MovieDetailViewState()
+    data object Loading : MovieDetailViewState()
+
+    data object Error : MovieDetailViewState()
 
     data class Display(
         val movie: EntityMovieDetail

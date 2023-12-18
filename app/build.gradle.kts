@@ -161,6 +161,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.4")
+    detektPlugins("com.twitter.compose.rules:detekt:0.0.26")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.7")
 }
 
 fun getApiKey() : String {

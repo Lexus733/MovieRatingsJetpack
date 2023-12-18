@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -32,6 +33,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.moviesrating.R
+import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetail
+import com.example.moviesrating.presentation.ui.components.Error
 import com.example.moviesrating.presentation.ui.components.Loading
 import com.example.moviesrating.presentation.ui.components.PosterImage
 import com.example.moviesrating.presentation.ui.components.Rating
@@ -40,12 +43,14 @@ import com.example.moviesrating.presentation.ui.theme.MovieDetailCardRateColor
 
 @Composable
 fun MovieDetailScreen(
+    movieDetail: EntityMovieDetail?,
+    modifier: Modifier = Modifier,
     movieDetailViewModel: MovieDetailViewModel = hiltViewModel()
 ) {
     val moviesState by movieDetailViewModel.movieDetailViewState.collectAsState()
 
     Box(
-        Modifier
+        modifier
             .fillMaxSize()
             .background(BackgroundColor)
             .verticalScroll(rememberScrollState())
@@ -53,11 +58,14 @@ fun MovieDetailScreen(
         when (val state = moviesState) {
             is MovieDetailViewState.Loading -> Loading()
             is MovieDetailViewState.Display -> Display(state)
+            is MovieDetailViewState.Error -> Error(
+                message = stringResource(id = R.string.screen_movie_detail_error)
+            )
         }
     }
 
     LaunchedEffect(key1 = moviesState, block = {
-        movieDetailViewModel.obtainIntent(intent = MovieDetailIntent.EnterScreen)
+        movieDetailViewModel.obtainIntent(intent = MovieDetailIntent.EnterScreen(movieDetail))
     })
 }
 
@@ -71,7 +79,10 @@ private fun Display(state: MovieDetailViewState.Display) {
 }
 
 @Composable
-private fun BannerWithRate(state: MovieDetailViewState.Display, modifier: Modifier) {
+private fun BannerWithRate(
+    state: MovieDetailViewState.Display,
+    modifier: Modifier = Modifier
+) {
     Box(modifier = modifier) {
         AsyncImage(
             model = state.movie.banner,
@@ -101,13 +112,20 @@ private fun BannerWithRate(state: MovieDetailViewState.Display, modifier: Modifi
 }
 
 @Composable
-private fun BaseInfo(state: MovieDetailViewState.Display, modifier: Modifier) {
+private fun BaseInfo(
+    state: MovieDetailViewState.Display,
+    modifier: Modifier = Modifier
+) {
     Box(modifier = modifier) {
         Row(
             verticalAlignment = Alignment.Bottom,
             modifier = Modifier.align(Alignment.BottomCenter),
         ) {
-            PosterImage(entityMovieDetail = state.movie) { }
+            PosterImage(
+                modifier = Modifier,
+                onClick = {},
+                entityMovieDetail = state.movie
+            )
             Text(
                 text = state.movie.title,
                 fontSize = 18.sp,

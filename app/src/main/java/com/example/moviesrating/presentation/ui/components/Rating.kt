@@ -18,7 +18,10 @@ import com.example.moviesrating.R
 import com.example.moviesrating.presentation.ui.theme.MovieDetailRateColor
 
 @Composable
-fun Rating(modifier: Modifier = Modifier, rating: String) {
+fun Rating(
+    rating: String,
+    modifier: Modifier = Modifier
+) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically

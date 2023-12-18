@@ -35,12 +35,15 @@ import com.example.moviesrating.R
 import com.example.moviesrating.presentation.ui.theme.BackgroundColor
 
 @Composable
-fun AdditionalInfoTabRow(state: MovieDetailViewState.Display) {
+fun AdditionalInfoTabRow(
+    state: MovieDetailViewState.Display,
+    modifier: Modifier = Modifier
+) {
     val tabs = listOf("About Movie", "Cast")
     var tabIndex by remember { mutableIntStateOf(0) }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(top = 8.dp)
     ) {

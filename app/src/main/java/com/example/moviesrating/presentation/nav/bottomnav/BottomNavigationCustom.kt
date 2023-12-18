@@ -25,7 +25,8 @@ import com.example.moviesrating.presentation.ui.theme.ButtonItemUnselectedColor
 
 @Composable
 fun BottomNavigationCustom(
-    navController: NavController
+    navController: NavController,
+    modifier: Modifier = Modifier
 ) {
     val listItems = listOf(
         BottomNavigationItem.Home,
@@ -34,6 +35,7 @@ fun BottomNavigationCustom(
     )
 
     BottomNavigation(
+        modifier = modifier,
         backgroundColor = BackgroundColor
     ) {
         val backStack by navController.currentBackStackEntryAsState()

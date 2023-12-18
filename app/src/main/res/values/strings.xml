@@ -13,4 +13,6 @@
     <string name="screen_save_watch_title">Watch list</string>
     <string name="screen_undefined">undefined</string>
     <string name="screen_movie_detail">Movie detail</string>
+    <string name="screen_movie_detail_error">Data about movie not found</string>
+
 </resources>

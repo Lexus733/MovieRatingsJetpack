@@ -6,9 +6,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun SaveWatchScreen() {
+fun SaveWatchScreen(
+    modifier: Modifier = Modifier
+) {
     Text(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         text = "SaveWatchScreen.javaClass.toString()"
     )
 }
