@@ -27,7 +27,6 @@ import com.example.moviesrating.presentation.ui.theme.TopAppBarIconColor
 import com.example.moviesrating.presentation.ui.theme.TopAppBarTitleColor
 import com.example.moviesrating.utils.Route
 import com.example.moviesrating.utils.RouteConst
-import java.lang.RuntimeException
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
