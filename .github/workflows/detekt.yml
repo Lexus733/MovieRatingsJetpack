@@ -1,20 +1,31 @@
-
-name: detekt
+name: Detekt
 
 on:
- push:
-   branches:
-   - main
- pull_request:
-   branches:
-   - main
- workflow_dispatch:
+  push:
+     branches: [ "main" ]
+  pull_request:
+     branches: [ "main" ]
 
 jobs:
- detekt:
-   runs-on: ubuntu-latest
-   steps:
-      - name: "checkout"
-        uses: actions/checkout@v3
-      - name: "detekt"
-        uses: natiginfo/action-detekt-all@1.23.4
+  android-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: zulu
+          java-version: 17
+          cache: gradle
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+      - name: Access API_KEY
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: echo API_KEY=\"$API_KEY\" > ./local.properties
+      - name: Build the app
+        run: ./gradlew assembleDebug
+      - name: Start detekt
+        run: ./gradlew detekt
