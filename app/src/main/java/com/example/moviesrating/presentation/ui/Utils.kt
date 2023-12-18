@@ -11,3 +11,7 @@ annotation class ThemePreviews
 @Preview(name = "Left-To-Right", locale = "en")
 @Preview(name = "Right-To-Left", locale = "ar")
 annotation class LayoutDirectionPreviews
+
+@ThemePreviews
+@LayoutDirectionPreviews
+annotation class BasePreview

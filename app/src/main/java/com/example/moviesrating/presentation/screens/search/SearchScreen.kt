@@ -29,6 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.moviesrating.R
 import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetail
 import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetailPreview
+import com.example.moviesrating.presentation.ui.BasePreview
 import com.example.moviesrating.presentation.ui.ThemePreviews
 import com.example.moviesrating.presentation.ui.components.Loading
 import com.example.moviesrating.presentation.ui.components.PosterImage
@@ -98,7 +99,7 @@ private fun NoItems() {
     }
 }
 
-@ThemePreviews
+@BasePreview
 @Composable
 private fun SearchItem(@PreviewParameter(EntityMovieDetailPreview::class) entityMovieDetail: EntityMovieDetail) {
     Row {
