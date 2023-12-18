@@ -12,6 +12,11 @@ import dagger.hilt.android.HiltAndroidApp
 const val MEMORY_CACHE_MAX_SIZE = 0.1
 const val DISK_CACHE_MAX_SIZE = 0.03
 
+/// Что добавить
+/// room (кэшировать данные и запросы в сеть чтобы не было лишних запросов)
+/// retrofit (добавить что-то типо проверки на DDOS)
+/// firebase (аналитика, краши, пуши)
+/// библиотеки для нахождения уязвимостей типо checkmarx
 @HiltAndroidApp
 class BaseApplication : Application(), ImageLoaderFactory {
 
