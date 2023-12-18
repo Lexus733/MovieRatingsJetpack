@@ -36,5 +36,5 @@ object DispatchersModule {
 
     @MainHandler
     @Provides
-    fun provideMainHandler() : Handler = Handler(Looper.getMainLooper())
+    fun provideMainHandler(): Handler = Handler(Looper.getMainLooper())
 }

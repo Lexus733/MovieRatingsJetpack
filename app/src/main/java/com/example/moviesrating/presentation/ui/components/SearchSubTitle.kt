@@ -25,7 +25,7 @@ fun SearchSubTitle(
         fontSize = 12.sp,
         lineHeight = 19.2.sp,
         fontFamily = FontFamily(Font(R.font.montserrat_thin)),
-        fontWeight = FontWeight(500),
+        fontWeight = FontWeight.W500,
         color = SearchSubTitleTextColor,
         textAlign = TextAlign.Center,
         letterSpacing = 0.12.sp

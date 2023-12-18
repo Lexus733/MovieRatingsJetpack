@@ -1,8 +1,6 @@
 package com.example.moviesrating.presentation.screens.search
 
-sealed class SearchViewIntent() {
+sealed class SearchViewIntent {
 
-    object EnterScreen : SearchViewIntent()
-    data class StartSearching(val searchText: String) : SearchViewIntent()
-
+    data object EnterScreen : SearchViewIntent()
 }

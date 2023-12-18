@@ -26,7 +26,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import com.example.moviesrating.R
 import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetail
 import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetailPreview
@@ -40,7 +39,6 @@ import com.example.moviesrating.presentation.ui.components.SearchTitle
 
 @Composable
 fun SearchScreen(
-    navController: NavHostController,
     viewModel: SearchViewModel = hiltViewModel()
 ) {
     val searchState = viewModel.viewState.collectAsState()
@@ -109,7 +107,7 @@ private fun SearchItem(@PreviewParameter(EntityMovieDetailPreview::class) entity
             Text(
                 text = entityMovieDetail.title,
                 fontSize = 16.sp,
-                fontWeight = FontWeight(400),
+                fontWeight = FontWeight.W400,
                 fontFamily = FontFamily(Font(R.font.poppins)),
                 color = Color.White,
                 modifier = Modifier.fillMaxSize()
@@ -140,7 +138,7 @@ private fun ItemInfo(icon: Int, text: String) {
                 Font(R.font.poppins)
             ),
             fontSize = 12.sp,
-            fontWeight = FontWeight(400)
+            fontWeight = FontWeight.W400
         )
     }
 }

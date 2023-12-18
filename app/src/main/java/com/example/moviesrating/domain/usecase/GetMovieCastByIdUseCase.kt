@@ -4,5 +4,5 @@ import com.example.moviesrating.domain.model.moviecast.EntityMovieCast
 
 interface GetMovieCastByIdUseCase {
 
-    suspend fun getMovieCast(imdbId: String) : EntityMovieCast
+    suspend fun getMovieCast(imdbId: String): EntityMovieCast
 }

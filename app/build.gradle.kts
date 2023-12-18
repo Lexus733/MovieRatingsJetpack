@@ -80,13 +80,11 @@ android {
     }
 
     tasks.withType<Detekt>().configureEach {
+        jvmTarget = "1.8"
         reports {
             html.required.set(true) // observe findings in your browser with structure and code snippets
             html.outputLocation.set(file("$projectDir/config/reports/detekt.html"))
         }
-    }
-    tasks.withType<Detekt>().configureEach {
-        jvmTarget = "1.8"
     }
     tasks.withType<DetektCreateBaselineTask>().configureEach {
         jvmTarget = "1.8"
@@ -161,6 +159,8 @@ dependencies {
 
     // viewModel()
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.4")
 }
 
 fun getApiKey() : String {

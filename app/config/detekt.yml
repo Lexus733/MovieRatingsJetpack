@@ -1,0 +1,18 @@
+exceptions:
+  active: true
+  SwallowedException:
+    active: false
+  TooGenericExceptionCaught:
+    active: false
+naming:
+  active: true
+  FunctionNaming:
+    active: false
+  ConstructorParameterNaming:
+    active: false
+style:
+  active: true
+  MagicNumber:
+    active: true
+    excludes:
+      - '**/ui/theme/**'

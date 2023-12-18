@@ -6,7 +6,7 @@ const val POPULARITY_SIZE = 10
 
 class EntityMoviesByPopularityMapper {
 
-    fun adapt(dataEntityMoviesByPopularity: DataEntityMoviesByPopularity) : EntityMoviesByPopularity {
+    fun adapt(dataEntityMoviesByPopularity: DataEntityMoviesByPopularity): EntityMoviesByPopularity {
         val results = dataEntityMoviesByPopularity.results?.take(POPULARITY_SIZE)
         val list = arrayListOf<String>()
         results?.map {

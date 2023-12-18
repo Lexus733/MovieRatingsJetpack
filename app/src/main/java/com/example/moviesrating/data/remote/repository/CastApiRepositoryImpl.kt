@@ -8,6 +8,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+@Suppress("SwallowedException", "TooGenericExceptionCaught")
 class CastApiRepositoryImpl @Inject constructor(
     private val api: MovieApi,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,

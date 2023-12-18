@@ -4,7 +4,7 @@ import com.example.moviesrating.data.remote.model.actordetails.DataEntityActorDe
 
 class EntityActorDetailsMapper {
 
-    fun adapt(dataEntity: DataEntityActorDetails) : EntityActorDetails {
+    fun adapt(dataEntity: DataEntityActorDetails): EntityActorDetails {
         return EntityActorDetails(
             image_url = dataEntity.results.image_url,
             name = dataEntity.results.name ?: "empty"

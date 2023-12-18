@@ -1,5 +1,6 @@
 package com.example.moviesrating.presentation.screens.detail
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetail
 import com.example.moviesrating.utils.IntentHandler
@@ -10,8 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class MovieDetailViewModel @Inject constructor(
-) : ViewModel(), IntentHandler<MovieDetailIntent> {
+class MovieDetailViewModel @Inject constructor() : ViewModel(), IntentHandler<MovieDetailIntent> {
 
     private val _movieDetailViewState =
         MutableStateFlow<MovieDetailViewState>(MovieDetailViewState.Loading)
@@ -22,17 +22,8 @@ class MovieDetailViewModel @Inject constructor(
     }
 
     override fun obtainIntent(intent: MovieDetailIntent) {
-        when(val currentState = _movieDetailViewState.value) {
-            is MovieDetailViewState.Loading -> reduce(intent, currentState)
-            is MovieDetailViewState.Display -> reduce(intent, currentState)
+        when (intent) {
+            else -> Log.d("MovieDetailIntent", intent.toString())
         }
-    }
-
-    private fun reduce(intent: MovieDetailIntent, currentState: MovieDetailViewState.Loading) {
-
-    }
-
-    private fun reduce(intent: MovieDetailIntent, currentState: MovieDetailViewState.Display) {
-
     }
 }

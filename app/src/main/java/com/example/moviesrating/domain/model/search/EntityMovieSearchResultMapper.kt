@@ -6,7 +6,7 @@ const val ITEMS = 5
 
 class EntityMovieSearchResultMapper {
 
-    fun adapt(dataEntityMovieSearchResult: DataEntityMovieSearchResult) : List<EntityMovieSearchResult> {
+    fun adapt(dataEntityMovieSearchResult: DataEntityMovieSearchResult): List<EntityMovieSearchResult> {
         val list = arrayListOf<EntityMovieSearchResult>()
         dataEntityMovieSearchResult.results.take(ITEMS).map {
             list.add(EntityMovieSearchResult(imdb_id = it.imdb_id, title = it.title))

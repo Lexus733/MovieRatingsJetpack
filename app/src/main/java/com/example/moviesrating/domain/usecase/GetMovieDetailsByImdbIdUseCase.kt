@@ -4,5 +4,5 @@ import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetail
 
 interface GetMovieDetailsByImdbIdUseCase {
 
-    suspend fun getDetails(imdbId: String) : EntityMovieDetail
+    suspend fun getDetails(imdbId: String): EntityMovieDetail
 }

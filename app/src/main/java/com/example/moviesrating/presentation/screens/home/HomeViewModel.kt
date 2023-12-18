@@ -31,11 +31,15 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun reduce(intent: HomeIntent, currentState: HomeViewState.Display) {
-
+        when (intent) {
+            else -> Log.d("HomeViewState.Display", "Invalid $intent for state $currentState")
+        }
     }
 
     private fun reduce(intent: HomeIntent, currentState: HomeViewState.NoItems) {
-
+        when (intent) {
+            else -> Log.d("HomeViewState.NoItems", "Invalid $intent for state $currentState")
+        }
     }
 
     private fun reduce(intent: HomeIntent, currentState: HomeViewState.Loading) {
@@ -46,22 +50,24 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun reduce(intent: HomeIntent, currentState: HomeViewState.Error) {
-
+        when (intent) {
+            else -> Log.d("HomeViewState.Error", "Invalid $intent for state $currentState")
+        }
     }
 
     private fun getMovieList() {
         viewModelScope.launch {
-
             _homeViewState.update { HomeViewState.Loading }
 
             val result = interactor.getData()
 
             _homeViewState.update {
-                if (result.list.isNotEmpty())
+                if (result.list.isNotEmpty()) {
                     HomeViewState.Display(items = result.list, result.gens)
-                else HomeViewState.NoItems
+                } else {
+                    HomeViewState.NoItems
+                }
             }
         }
     }
 }
-

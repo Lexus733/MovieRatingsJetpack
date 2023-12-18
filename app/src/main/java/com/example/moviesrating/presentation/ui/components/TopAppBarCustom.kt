@@ -45,16 +45,14 @@ fun TopAppBarCustom(navController: NavController) {
                 color = TopAppBarTitleColor,
                 fontSize = 16.sp,
                 fontFamily = FontFamily(Font(R.font.montserrat_medium)),
-                fontWeight = FontWeight(600),
+                fontWeight = FontWeight.W600,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
         },
         navigationIcon = {
             IconButton(
-                onClick = {
-                      navController.popBackStack()
-                },
+                onClick = { navController.popBackStack() },
                 modifier = Modifier.padding(start = 16.dp)
             ) {
                 Icon(

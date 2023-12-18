@@ -33,7 +33,13 @@ object RepositoriesModule {
         entityMoviesByPopularityMapper: EntityMoviesByPopularityMapper,
         entityMovieSearchResultMapper: EntityMovieSearchResultMapper
     ): MovieApiRepository =
-        MovieApiRepositoryImpl(api, io, entityMovieDetailMapper, entityMoviesByPopularityMapper, entityMovieSearchResultMapper)
+        MovieApiRepositoryImpl(
+            api,
+            io,
+            entityMovieDetailMapper,
+            entityMoviesByPopularityMapper,
+            entityMovieSearchResultMapper
+        )
 
     @Singleton
     @Provides

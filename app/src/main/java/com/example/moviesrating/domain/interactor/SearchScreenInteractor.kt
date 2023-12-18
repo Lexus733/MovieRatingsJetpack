@@ -14,7 +14,7 @@ class SearchScreenInteractor @Inject constructor(
     private val getMovieDetailsByImdbIdUseCase: GetMovieDetailsByImdbIdUseCase
 ) {
 
-    suspend fun getDataBySearchText(searchText: String) : List<EntityMovieDetail> = coroutineScope {
+    suspend fun getDataBySearchText(searchText: String): List<EntityMovieDetail> = coroutineScope {
         val searchResult = getMovieListByTitleUseCase.getMoviesListByTitle(searchText)
         val result = arrayListOf<Deferred<EntityMovieDetail>>()
         searchResult.map { search ->
@@ -24,5 +24,4 @@ class SearchScreenInteractor @Inject constructor(
         }
         return@coroutineScope result.awaitAll()
     }
-
 }

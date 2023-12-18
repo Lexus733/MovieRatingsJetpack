@@ -35,7 +35,7 @@ fun Rating(modifier: Modifier = Modifier, rating: String) {
             text = rating,
             color = MovieDetailRateColor,
             fontFamily = FontFamily(Font(R.font.montserrat_medium)),
-            fontWeight = FontWeight(600),
+            fontWeight = FontWeight.W600,
             fontSize = 12.sp,
             letterSpacing = 0.12.sp
         )

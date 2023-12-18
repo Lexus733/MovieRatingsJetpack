@@ -19,13 +19,13 @@ import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetail
 import com.example.moviesrating.presentation.ui.theme.BackgroundColor
 
 @Composable
-fun PosterImage(entityMovieDetail: EntityMovieDetail, onClick : () -> Unit) {
+fun PosterImage(entityMovieDetail: EntityMovieDetail, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .size(width = 140.dp, height = 210.dp)
             .padding(start = 12.dp, end = 12.dp, top = 8.dp, bottom = 8.dp)
             .clickable {
-                       onClick.invoke()
+                onClick.invoke()
             },
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
@@ -40,6 +40,6 @@ fun PosterImage(entityMovieDetail: EntityMovieDetail, onClick : () -> Unit) {
             error = painterResource(id = R.drawable.ic_error_24),
             contentDescription = null,
             contentScale = ContentScale.FillBounds
-            )
+        )
     }
 }

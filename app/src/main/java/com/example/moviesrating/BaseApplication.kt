@@ -9,6 +9,9 @@ import coil.request.CachePolicy
 import coil.util.DebugLogger
 import dagger.hilt.android.HiltAndroidApp
 
+const val MEMORY_CACHE_MAX_SIZE = 0.1
+const val DISK_CACHE_MAX_SIZE = 0.03
+
 @HiltAndroidApp
 class BaseApplication : Application(), ImageLoaderFactory {
 
@@ -18,14 +21,14 @@ class BaseApplication : Application(), ImageLoaderFactory {
             .memoryCachePolicy(CachePolicy.ENABLED)
             .memoryCache {
                 MemoryCache.Builder(this)
-                    .maxSizePercent(0.1)
+                    .maxSizePercent(MEMORY_CACHE_MAX_SIZE)
                     .strongReferencesEnabled(true)
                     .build()
             }
             .diskCachePolicy(CachePolicy.ENABLED)
-            .diskCache{
+            .diskCache {
                 DiskCache.Builder()
-                    .maxSizePercent(0.03)
+                    .maxSizePercent(DISK_CACHE_MAX_SIZE)
                     .directory(cacheDir)
                     .build()
             }

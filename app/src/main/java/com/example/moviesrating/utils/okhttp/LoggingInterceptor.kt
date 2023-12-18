@@ -13,6 +13,8 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
+const val DEFAULT_ERROR_CODE = 999
+
 class LoggingInterceptor @Inject constructor(
     private val context: Context,
     private val handler: Handler
@@ -39,9 +41,7 @@ class LoggingInterceptor @Inject constructor(
             return response.newBuilder()
                 .body(bodyString.toResponseBody(response.body?.contentType()))
                 .build()
-
         } catch (e: Exception) {
-            e.printStackTrace()
             val msg: String
             when (e) {
                 is SocketTimeoutException -> {
@@ -69,8 +69,8 @@ class LoggingInterceptor @Inject constructor(
                 .request(request)
                 .protocol(Protocol.HTTP_1_1)
                 .message(msg)
-                .code(999)
-                .body("{${e}}".toResponseBody(null))
+                .code(DEFAULT_ERROR_CODE)
+                .body("$e".toResponseBody(null))
                 .build()
         }
     }

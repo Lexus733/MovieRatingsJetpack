@@ -45,7 +45,6 @@ class SplashActivity : ComponentActivity() {
     @Preview(showBackground = true)
     @Composable
     private fun SplashScreen() {
-
         val alpha = remember {
             Animatable(ANIMATION_ALPHA_INITIAL)
         }

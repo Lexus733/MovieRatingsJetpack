@@ -30,16 +30,18 @@ fun NavGraph(
             HomeScreen(navController = navHostController)
         }
         composable(RouteConst.SEARCH) {
-            SearchScreen(navController = navHostController)
+            SearchScreen()
         }
         composable(RouteConst.SAVE_WATCH) {
-            SaveWatchScreen(navController = navHostController)
+            SaveWatchScreen()
         }
         composable(RouteConst.MOVIE_DETAIL) {
-            val movieDetail = navHostController.previousBackStackEntry?.savedStateHandle?.get<EntityMovieDetail>(RouteConst.MOVIE_DETAIL)
-            val viewModel : MovieDetailViewModel = hiltViewModel()
+            val movieDetail = navHostController.previousBackStackEntry
+                ?.savedStateHandle
+                ?.get<EntityMovieDetail>(RouteConst.MOVIE_DETAIL)
+            val viewModel: MovieDetailViewModel = hiltViewModel()
             if (movieDetail != null) viewModel.updateViewModel(movieDetail)
-            MovieDetailScreen(navController = navHostController, viewModel)
+            MovieDetailScreen(viewModel)
         }
     }
 }

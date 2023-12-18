@@ -4,5 +4,5 @@ import com.example.moviesrating.domain.model.actordetails.EntityActorDetails
 
 interface GetActorDetailsByIdUseCase {
 
-    suspend fun getActorDetail(actorId: String) : EntityActorDetails
+    suspend fun getActorDetail(actorId: String): EntityActorDetails
 }

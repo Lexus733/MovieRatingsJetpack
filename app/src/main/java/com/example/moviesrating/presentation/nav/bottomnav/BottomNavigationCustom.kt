@@ -40,7 +40,6 @@ fun BottomNavigationCustom(
         val currentRoute = backStack?.destination?.route
 
         Column {
-
             Divider(color = BottomNavigationDividerColor, thickness = 1.dp)
 
             Row {
@@ -62,7 +61,8 @@ fun BottomNavigationCustom(
                                 contentDescription = null,
                                 modifier = Modifier.size(24.dp)
                             )
-                        }, label = {
+                        },
+                        label = {
                             Text(
                                 text = stringResource(id = item.title),
                                 fontSize = 12.sp

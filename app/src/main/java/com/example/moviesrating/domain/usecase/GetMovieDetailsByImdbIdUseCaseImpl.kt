@@ -9,7 +9,7 @@ class GetMovieDetailsByImdbIdUseCaseImpl @Inject constructor(
     private val moviesApiRepository: MovieApiRepository
 ) : GetMovieDetailsByImdbIdUseCase {
 
-    override suspend fun getDetails(imdbId: String) : EntityMovieDetail = coroutineScope {
+    override suspend fun getDetails(imdbId: String): EntityMovieDetail = coroutineScope {
         return@coroutineScope moviesApiRepository.getMovieByImdbId(imdbId)
     }
 }

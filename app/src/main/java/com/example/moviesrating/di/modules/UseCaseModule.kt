@@ -23,22 +23,22 @@ import dagger.hilt.android.components.ViewModelComponent
 object UseCaseModule {
 
     @Provides
-    fun getPopularFilmsDataUseCase(movieApiRepository: MovieApiRepository) : GetPopularFilmsDataUseCase =
+    fun getPopularFilmsDataUseCase(movieApiRepository: MovieApiRepository): GetPopularFilmsDataUseCase =
         GetPopularFilmsDataUseCaseImpl(movieApiRepository)
 
     @Provides
-    fun getMovieCastByIdUseCase(castApiRepository: CastApiRepository) : GetMovieCastByIdUseCase =
+    fun getMovieCastByIdUseCase(castApiRepository: CastApiRepository): GetMovieCastByIdUseCase =
         GetMovieCastByIdUseCaseImpl(castApiRepository)
 
     @Provides
-    fun getActorDetailsByIdUseCase(actorDetailsApiRepository: ActorDetailsApiRepository) : GetActorDetailsByIdUseCase =
+    fun getActorDetailsByIdUseCase(actorDetailsApiRepository: ActorDetailsApiRepository): GetActorDetailsByIdUseCase =
         GetActorDetailsByIdUseCaseImpl(actorDetailsApiRepository)
 
     @Provides
-    fun getMovieDetailsByImdbIdUseCase(movieApiRepository: MovieApiRepository) : GetMovieDetailsByImdbIdUseCase =
+    fun getMovieDetailsByImdbIdUseCase(movieApiRepository: MovieApiRepository): GetMovieDetailsByImdbIdUseCase =
         GetMovieDetailsByImdbIdUseCaseImpl(movieApiRepository)
 
     @Provides
-    fun getMovieListByTitleUseCase(movieApiRepository: MovieApiRepository) : GetMovieListByTitleUseCase =
+    fun getMovieListByTitleUseCase(movieApiRepository: MovieApiRepository): GetMovieListByTitleUseCase =
         GetMovieListByTitleUseCaseImpl(movieApiRepository)
 }

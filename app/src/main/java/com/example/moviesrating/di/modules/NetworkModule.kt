@@ -32,10 +32,12 @@ object NetworkModule {
         @ApplicationContext context: Context
     ): OkHttpClient = OkHttpClient()
         .newBuilder()
-        .cache(Cache(
-            directory = File(context.applicationContext.cacheDir, "http_cache"),
-            maxSize = 50L * 1024L * 1024L // 50 MiB
-        ))
+        .cache(
+            Cache(
+                directory = File(context.applicationContext.cacheDir, "http_cache"),
+                maxSize = 50L * 1024L * 1024L // 50 MiB
+            )
+        )
         .addInterceptor { chain ->
             chain.request().newBuilder()
                 .addHeader("X-RapidAPI-Key", BuildConfig.API_KEY)

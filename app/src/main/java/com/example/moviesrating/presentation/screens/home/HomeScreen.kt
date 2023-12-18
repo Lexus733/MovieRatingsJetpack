@@ -38,6 +38,8 @@ import com.example.moviesrating.presentation.ui.components.PosterImage
 import com.example.moviesrating.presentation.ui.theme.BackgroundColor
 import com.example.moviesrating.utils.RouteConst
 
+const val GRID_COUNT = 3
+
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
@@ -55,7 +57,9 @@ fun HomeScreen(
             is HomeViewState.Loading -> Loading()
             is HomeViewState.Error -> Error(state.message.toString())
             is HomeViewState.Display -> Display(state) {
-                navController.currentBackStackEntry?.savedStateHandle?.set(RouteConst.MOVIE_DETAIL, it)
+                navController.currentBackStackEntry
+                    ?.savedStateHandle
+                    ?.set(RouteConst.MOVIE_DETAIL, it)
                 navController.navigate(RouteConst.MOVIE_DETAIL)
             }
         }
@@ -74,7 +78,7 @@ private fun NoItems() {
 }
 
 @Composable
-private fun Display(state: HomeViewState.Display, onPosterClick : (EntityMovieDetail) -> Unit) {
+private fun Display(state: HomeViewState.Display, onPosterClick: (EntityMovieDetail) -> Unit) {
     Column {
         PopularMoviesLazyRow(state, onPosterClick)
         GenresTabRow(state, onPosterClick)
@@ -82,7 +86,10 @@ private fun Display(state: HomeViewState.Display, onPosterClick : (EntityMovieDe
 }
 
 @Composable
-private fun PopularMoviesLazyRow(state: HomeViewState.Display, onPosterClick: (EntityMovieDetail) -> Unit) {
+private fun PopularMoviesLazyRow(
+    state: HomeViewState.Display,
+    onPosterClick: (EntityMovieDetail) -> Unit
+) {
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
@@ -120,12 +127,9 @@ private fun GenresTabRow(state: HomeViewState.Display, onPosterClick: (EntityMov
                         fontFamily = FontFamily(Font(R.font.poppins)),
                         color = Color.White,
                         textAlign = TextAlign.Center,
-                        fontWeight = FontWeight(500)
+                        fontWeight = FontWeight.W500
                     )
-                },
-                    selected = tabIndex == index,
-                    onClick = { tabIndex = index }
-                )
+                }, selected = tabIndex == index, onClick = { tabIndex = index })
             }
         }
     }
@@ -138,15 +142,12 @@ private fun GenreLazyGrid(
     state: HomeViewState.Display,
     onPosterClick: (EntityMovieDetail) -> Unit
 ) {
-    //TODO Оптимизировать эту хрень
     val gen = state.genMap.keys.elementAt(currentPage)
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
-        content = {
-            items(state.genMap[gen]!!) {
-                PosterImage(entityMovieDetail = it) {
-                    onPosterClick.invoke(it)
-                }
+    LazyVerticalGrid(columns = GridCells.Fixed(GRID_COUNT), content = {
+        items(state.genMap[gen]!!) {
+            PosterImage(entityMovieDetail = it) {
+                onPosterClick.invoke(it)
             }
-        })
+        }
+    })
 }
