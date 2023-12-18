@@ -11,6 +11,8 @@ plugins {
     id("kotlin-parcelize")
     id("io.gitlab.arturbosch.detekt") version "1.23.4"
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -164,6 +166,10 @@ dependencies {
     detektPlugins("com.twitter.compose.rules:detekt:0.0.26")
 
     implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.7")
+
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-analytics")
 }
 
 fun getApiKey() : String {

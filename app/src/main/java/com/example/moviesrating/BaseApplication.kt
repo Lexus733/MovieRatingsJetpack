@@ -18,6 +18,7 @@ const val DISK_CACHE_MAX_SIZE = 0.03
 /// firebase (аналитика, краши, пуши)
 /// библиотеки для нахождения уязвимостей типо checkmarx
 /// тесты и пайпу для покрытия тестами
+/// проверка на запросы когда нету инета
 @HiltAndroidApp
 class BaseApplication : Application(), ImageLoaderFactory {
 
