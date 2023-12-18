@@ -33,6 +33,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moviesrating.R
 import com.example.moviesrating.domain.model.moviedetail.EntityMovieDetail
+import com.example.moviesrating.presentation.ui.components.Error
 import com.example.moviesrating.presentation.ui.components.Loading
 import com.example.moviesrating.presentation.ui.components.PosterImage
 import com.example.moviesrating.presentation.ui.theme.BackgroundColor
