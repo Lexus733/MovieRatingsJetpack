@@ -20,11 +20,11 @@ jobs:
           java-version: 17
           cache: gradle
       - name: Create file
-        run: cat app/google-services.json | base64
+        run: cat /home/runner/work/MovieRatingsJetpack/MovieRatingsJetpack/app/google-services.jsonn | base64
       - name: Putting data
         env:
           DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
-        run: echo $DATA > app/google-services.json
+        run: echo $DATA > /home/runner/work/MovieRatingsJetpack/MovieRatingsJetpack/app/google-services.json
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: Access API_KEY
