@@ -17,6 +17,7 @@ const val DISK_CACHE_MAX_SIZE = 0.03
 /// retrofit (добавить что-то типо проверки на DDOS)
 /// firebase (аналитика, краши, пуши)
 /// библиотеки для нахождения уязвимостей типо checkmarx
+/// тесты и пайпу для покрытия тестами
 @HiltAndroidApp
 class BaseApplication : Application(), ImageLoaderFactory {
 
