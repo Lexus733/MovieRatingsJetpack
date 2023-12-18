@@ -19,10 +19,12 @@ jobs:
           distribution: zulu
           java-version: 17
           cache: gradle
-      - name: Decode Google Services JSON
+      - name: Create file
+        run: cat app/google-services.json | base64
+      - name: Putting data
         env:
-          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
-        run: echo $GOOGLE_SERVICES_JSON > app/google-services.json
+          DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: echo $DATA > app/google-services.json
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: Access API_KEY
