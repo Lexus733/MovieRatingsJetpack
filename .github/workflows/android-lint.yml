@@ -1,4 +1,4 @@
-name: AndroidLint
+name: Android Lint
 
 on:
   push:
