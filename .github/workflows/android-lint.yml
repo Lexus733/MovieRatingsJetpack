@@ -30,6 +30,6 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
         run: echo API_KEY=\"$API_KEY\" > ./local.properties
       - name: Build the app
-        run: ./gradlew assembleDebug --stacktrace
+        run: ./gradlew assembleDebug --info
       - name: Start lint
         run: ./gradlew lint
