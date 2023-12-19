@@ -30,7 +30,7 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
         run: echo API_KEY=\"$API_KEY\" > ./local.properties
       - name: Read file
-        run:  echo "version=$(cat VERSION)" >> $GITHUB_OUTPUT
+        run:  echo "version=$(cat --version)" >> $GITHUB_OUTPUT
       - name: Build the app
         run: ./gradlew assembleDebug
       - name: Start lint
